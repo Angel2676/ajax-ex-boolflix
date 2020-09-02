@@ -21,7 +21,7 @@ $(document).ready(function(){
 });
 
 // ************FUNZIONI**************
-        function attiva(){ // Chiudere funzione
+        function attiva(){
             var input = $("#valoriInput").val();
             $("#lista").empty();
             $.ajax(
@@ -34,24 +34,24 @@ $(document).ready(function(){
                 language: "it-IT"
                     },
             success: function(risposta){
-            for (var i = 0; i < risposta.results.length; i++) {
-            var source = $("#entry-template").html();
-            var template = Handlebars.compile(source);
-            var context =
+                for (var i = 0; i < risposta.results.length; i++) {
+                var source = $("#entry-template").html();
+                var template = Handlebars.compile(source);
+                var context =
                         {
                             title: "TITOLO: " + risposta.results[i].title,
                             original_title : "TITOLO ORIGINALE " + risposta.results[i].original_title,
                             original_language : "LINGUA " + risposta.results[i].original_language,
                             vote_average : "VOTO " + risposta.results[i].vote_average,
                         };
-            var html = template(context);
-            $("#lista").append(html);
-            $("#valoriInput").val(" ");
-            }
-        },
+                var html = template(context);
+                $("#lista").append(html);
+                $("#valoriInput").val(" ");
+                }
+            },
             error: function(){
                 alert("Si è verificato un errore");
                 }
-    });
+            });
 
 };
