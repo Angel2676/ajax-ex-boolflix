@@ -10,30 +10,20 @@
 
 
 $(document).ready(function(){
-
-
-
-    //  1 Step - Creazione searchbar che al click prende il valore
             $("button#button").click(function(){
                 attiva()
-            }) // Fine funzione
+            })
             $("#valoriInput").keydown(function(){
                 if (event.which==13 || event.keyCode==13) {
                     attiva()
-
                 }
-
-            }) // fine keydown
-}); // Fine document
-
+            })
+});
 
 // ************FUNZIONI**************
-
         function attiva(){ // Chiudere funzione
             var input = $("#valoriInput").val();
             $("#lista").empty();
-            // console.log(input); // Passaggio ok
-
             $.ajax(
                 {
             url: "https://api.themoviedb.org/3/search/movie",
@@ -42,11 +32,9 @@ $(document).ready(function(){
                 api_key : "86441f8205c2837900332bf796f193e9",
                 query: input,
                 language: "it-IT"
-
-                    }, // fine data
-
+                    },
             success: function(risposta){
-        for (var i = 0; i < risposta.results.length; i++) {
+            for (var i = 0; i < risposta.results.length; i++) {
             var source = $("#entry-template").html();
             var template = Handlebars.compile(source);
             var context =
@@ -55,20 +43,15 @@ $(document).ready(function(){
                             original_title : "TITOLO ORIGINALE " + risposta.results[i].original_title,
                             original_language : "LINGUA " + risposta.results[i].original_language,
                             vote_average : "VOTO " + risposta.results[i].vote_average,
-
-
                         };
             var html = template(context);
             $("#lista").append(html);
             $("#valoriInput").val(" ");
-
-
-
-            } // fine del for
-        }, // Fine success function
+            }
+        },
             error: function(){
                 alert("Si è verificato un errore");
                 }
-    }); // Fine ajax
+    });
 
-    }; // fine presa valore
+};
