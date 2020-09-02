@@ -1,3 +1,22 @@
+#valoriInput {
+    padding-right: 400px;
+}
+
 button{
-    padding: 3px;
+    padding: 6px;
+    margin-left: 15px;
+    color: black;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+
+}
+
+#lista li{
+    border:1px solid red;
+    text-align: center;
+    list-style:none;
+    color: black;
 }

@@ -20,6 +20,7 @@ $(document).ready(function(){
             $("#valoriInput").keydown(function(){
                 if (event.which==13 || event.keyCode==13) {
                     attiva()
+
                 }
 
             }) // fine keydown
@@ -50,15 +51,16 @@ $(document).ready(function(){
             var template = Handlebars.compile(source);
             var context =
                         {
-                            title: risposta.results[i].title,
-                            original_title : risposta.results[i].original_title,
-                            original_language : risposta.results[i].original_language,
-                            vote_average : risposta.results[i].vote_average,
+                            title: "TITOLO: " + risposta.results[i].title,
+                            original_title : "TITOLO ORIGINALE " + risposta.results[i].original_title,
+                            original_language : "LINGUA " + risposta.results[i].original_language,
+                            vote_average : "VOTO " + risposta.results[i].vote_average,
 
 
                         };
             var html = template(context);
             $("#lista").append(html);
+            $("#valoriInput").val(" ");
 
 
 
