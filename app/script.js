@@ -10,14 +10,14 @@
 
 
 $(document).ready(function(){
-            $("button#button").click(function(){
+        $("button#button").click(function(){
+            attiva()
+        })
+        $("#valoriInput").keydown(function(){
+            if (event.which==13 || event.keyCode==13) {
                 attiva()
-            })
-            $("#valoriInput").keydown(function(){
-                if (event.which==13 || event.keyCode==13) {
-                    attiva()
-                }
-            })
+        }
+    })
 });
 
 // ************FUNZIONI**************
