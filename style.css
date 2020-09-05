@@ -14,9 +14,14 @@ button{
 
 }
 
-#lista li{
-    border:1px solid red;
-    text-align: center;
-    list-style:none;
-    color: black;
+#lista span{
+    margin-right: 20px;
+}
+.grassetto {
+    color: blue;
+    font-weight: bold;
+}
+
+.flag {
+    width: 30px;
 }

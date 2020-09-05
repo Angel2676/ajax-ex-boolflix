@@ -15,19 +15,31 @@
             <input id="valoriInput"type="text" name="" value="" placeholder="inserisci il tuo titolo">
             <button id="button"type="button" name="button">Search</button>
         </div>
-        <div id="lista"> </div>
+        <h2>Film</h2>
+        <div id="covers-film"> </div>
+
+        <h2>Tv</h2>
+        <div id="covers-tv"> </div>
 
 
         <script id="entry-template" type="text/x-handlebars-template">
 
             <ul id="lista">
-                  <li>{{title}}</li>
-                  <li>{{original_title}}</li>
-                  <li>{{original_language}}</li>
-                  <li>{{vote_average}}</li>
+                 <li><span class="grassetto">Tipo</span>{{tpo}}</li>
+                  <li><span class="grassetto">Titolo</span>{{title}}</li>
+                  <li> <span class="grassetto">Titolo Originale</span>{{original_title}}</li>
+                  <li> <span class="grassetto">Lingua Originale</span>{{{original_language}}}</li>
+                  <li><span class="grassetto">Voto</span>{{{vote_average}}}</li>
+
 
             </ul>
 
+
+
+        </script>
+
+        <script id="no-result-template" type="text/x-handlebars-template">
+            <div class="no-result">{{noResult}}</div>
         </script>
 
         <script src="app/script.js" charset="utf-8"></script>
