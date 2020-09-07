@@ -6,7 +6,6 @@
 // Titolo Originale
 // Lingua
 // Voto
-/
 // // ***************SECONDA MILESTONE****************
 // // Milestone 2:
 // // ******STEP 1 **************
@@ -42,6 +41,8 @@ $(document).ready(function(){
     $("#button").click(function(){
         var queryInput = $("#valoriInput").val(); // preso valore
         reset();
+        var url1 = "https://api.themoviedb.org/3/search/movie";
+        var url2 = "https://api.themoviedb.org/3/search/tv";
         insertFilm(queryInput);
         insertTv(queryInput);
     });
@@ -50,8 +51,10 @@ $(document).ready(function(){
         if (event.which== 13 || event.keyCode == 13) {
             var queryInput = $("#valoriInput").val(); // preso valore
             reset();
-            insertFilm(queryInput);
-            insertTv(queryInput);
+            var url1 = "https://api.themoviedb.org/3/search/movie";
+            var url2 = "https://api.themoviedb.org/3/search/tv";
+            chiamata(queryInput,url1,"Film");
+            chiamata(queryInput,url2,"Tv");
         }
 
     });
@@ -60,9 +63,10 @@ $(document).ready(function(){
 
 // // *********FUNZIIONI*****************
     // 1 FUNCTION - ATTIVA AL CLICK
-function insertFilm(data){
-        $.ajax({
-            url:"https://api.themoviedb.org/3/search/movie",
+function chiamata(data,url,type){
+        $.ajax(
+            {
+            url: url,
             method: "GET",
             data:
             {
@@ -73,10 +77,10 @@ function insertFilm(data){
             },
             success: function(risposta){
                 if (risposta.total_results > 0 ) {
-                    printResult(risposta.results,"Film");
+                    printResult(risposta.results,type);
 
                 } else {
-                    noResult("Film")
+                    noResult(type);
                 }
 
             },
@@ -87,46 +91,50 @@ function insertFilm(data){
     );
 };
 
-function insertTv(data){
-        $.ajax({
-            url:"https://api.themoviedb.org/3/search/tv",
-            method: "GET",
-            data:
-            {
-                api_key: "86441f8205c2837900332bf796f193e9",
-                query: data,
-                language: "it-IT"
-
-            },
-            success: function(risposta){
-                if (risposta.total_results > 0 ) {
-                    printResult(risposta.results,"Tv");
-
-                } else{
-                    noResult("Tv")
-                }
-
-            },
-            error: function(){
-                alert("CI sono errori")
-            }
-        }
-    );
-};
+// Viene presa una sola chimamata API success
+// function insertTv(data){
+//         $.ajax({
+//             url:"https://api.themoviedb.org/3/search/tv",
+//             method: "GET",
+//             data:
+//             {
+//                 api_key: "86441f8205c2837900332bf796f193e9",
+//                 query: data,
+//                 language: "it-IT"
+//
+//             },
+//             success: function(risposta){
+//                 if (risposta.total_results > 0 ) {
+//                     printResult(risposta.results,"Tv");
+//
+//                 } else{
+//                     noResult("Tv")
+//                 }
+//
+//             },
+//             error: function(){
+//                 alert("CI sono errori")
+//             }
+//         }
+//     );
+// };
 
 // **************FUNZIONI************
 // 1 FUNZIONE - SUCCESS DELL'API
 function printResult(data,type){
     var source = $("#entry-template").html();
     var template = Handlebars.compile(source);
-    for (var i = 0; i < data.length; i++) {
+    var immagini = " ";
+        for (var i = 0; i < data.length; i++) {
         if (type == "Film") {
             var title = data[i].title;
-            var original_title = data[i].original_title
+            var original_title = data[i].original_title;
+            var immagini = data[i].poster_path;
 
         } else if (type == "Tv") {
             var title = data[i].name;
-            var original_title = data[i].original_name
+            var original_title = data[i].original_name;
+            var immagini = data[i].backdrop_path
         }
         var context = {
             tipo: type,
@@ -134,12 +142,14 @@ function printResult(data,type){
             original_title: original_title,
             original_language: flag(data[i].original_language),
             vote_average: starS(data[i].vote_average),
+            image: "https://image.tmdb.org/t/p/w342" + immagini,
+
 
         };
         var html = template(context);
-        if (type == "Film") {
+        if (type == "Film" && immagini != null) {
         $("#covers-film").append(html);
-        } else {
+    }   else if (type == "Tv" && immagini != null) {
         $("#covers-tv").append(html);
         }
 
@@ -165,7 +175,7 @@ function noResult(type){
 // 3 FUNZIONE - SVIUTAMENTO CAMPO INPUT CON VAL E SVUOTAMENTO COVERS
 function reset(){
     $("#covers-film").empty();
-    $("#covers-film").empty();
+    $("#covers-tv").empty();
     $("#valoriInput").val(" "); // preso valore
 };
 

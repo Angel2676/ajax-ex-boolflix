@@ -1,3 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: darkgrey;
+}
+
+#covers-film,#covers-tv{
+    width: 80vw;
+    background-color: black;
+    align-items: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+#lista li {
+    color: white;
+    list-style: none;
+}
+
 #valoriInput {
     padding-right: 400px;
 }
@@ -16,6 +40,10 @@ button{
 
 #lista span{
     margin-right: 20px;
+}
+.grassetto img{
+    
+    height: auto;
 }
 .grassetto {
     color: blue;
