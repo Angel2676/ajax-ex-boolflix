@@ -39,30 +39,31 @@
 
 $(document).ready(function(){
     $("#button").click(function(){
-        var queryInput = $("#valoriInput").val(); // preso valore
-        reset();
-        var url1 = "https://api.themoviedb.org/3/search/movie";
-        var url2 = "https://api.themoviedb.org/3/search/tv";
-        insertFilm(queryInput);
-        insertTv(queryInput);
+        init();
     });
 
     $("#valoriInput").keydown(function(){
-        if (event.which== 13 || event.keyCode == 13) {
-            var queryInput = $("#valoriInput").val(); // preso valore
-            reset();
-            var url1 = "https://api.themoviedb.org/3/search/movie";
-            var url2 = "https://api.themoviedb.org/3/search/tv";
-            chiamata(queryInput,url1,"Film");
-            chiamata(queryInput,url2,"Tv");
-        }
-
+        if (event.which == 13 || event.keyCode == 13) {
+        init();
+    }
     });
+
 }); // Fine JQuery
 
 
 // // *********FUNZIIONI*****************
-    // 1 FUNCTION - ATTIVA AL CLICK
+    // 1 FUNCTION - CLICK E keydown
+function init(){
+    var queryInput = $("#valoriInput").val(); // preso valore
+    reset();
+    var url1 = "https://api.themoviedb.org/3/search/movie";
+    var url2 = "https://api.themoviedb.org/3/search/tv";
+    chiamata(queryInput,url1,"Film");
+    chiamata(queryInput,url2,"Tv");
+
+};
+
+    // 2 FUNCTION - CHIAMATA JSON
 function chiamata(data,url,type){
         $.ajax(
             {
@@ -125,6 +126,7 @@ function printResult(data,type){
     var source = $("#entry-template").html();
     var template = Handlebars.compile(source);
     var immagini = " ";
+    var imagePath = "https://image.tmdb.org/t/p/w342"
         for (var i = 0; i < data.length; i++) {
         if (type == "Film") {
             var title = data[i].title;
@@ -142,19 +144,31 @@ function printResult(data,type){
             original_title: original_title,
             original_language: flag(data[i].original_language),
             vote_average: starS(data[i].vote_average),
-            image: "https://image.tmdb.org/t/p/w342" + immagini,
+            image: getImage(immagini,imagePath),
+            overview: data[i].overview.substring(0,250) + "[......]"
 
 
         };
         var html = template(context);
-        if (type == "Film" && immagini != null) {
+        if (type == "Film") {
         $("#covers-film").append(html);
-    }   else if (type == "Tv" && immagini != null) {
+        } else if (type == "Tv") {
         $("#covers-tv").append(html);
         }
 
         }
 };
+// Funzione no image
+function getImage(path, prefix) {
+    var img;
+    if (path == null) {
+        img = "https://i.ibb.co/hKqm2mZ/Untitled-1.png";
+    } else {
+        img = prefix + path
+    }
+    return img
+}
+
 
 // 2 FUNZIONE - FUNZIONE DI NON RISULTATI
 function noResult(type){
@@ -172,7 +186,7 @@ function noResult(type){
 
 };
 
-// 3 FUNZIONE - SVIUTAMENTO CAMPO INPUT CON VAL E SVUOTAMENTO COVERS
+// 3 FUNZIONE - SVOUTAMENTO CAMPO INPUT CON VAL E SVUOTAMENTO COVERS
 function reset(){
     $("#covers-film").empty();
     $("#covers-tv").empty();

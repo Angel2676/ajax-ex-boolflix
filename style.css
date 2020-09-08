@@ -9,18 +9,59 @@ body {
 }
 
 #covers-film,#covers-tv{
-    width: 80vw;
+    width: 100vw;
+    height: 100%
     background-color: black;
-    align-items: center;
     margin: 0 auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
+
 }
-#lista li {
+
+
+.lista{
+    position: relative;
+    width: calc(100% / 4);
+    height: 100%;
+    padding: 20px
+}
+
+
+.immagine img {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover;
+}
+
+
+
+.box {
     color: white;
     list-style: none;
+    position: absolute;
+    top: 1%;
+    padding: 10px;
+    width: 80%;
+    opacity: 0;
+
 }
+
+.box:hover{
+    opacity: 1;
+    transition: 0.1s;
+    background-color: darkgrey;
+    width: 100%;
+    height: 100%;
+}
+
+.immagine:hover{
+    display: none;
+}
+
+
+
 
 #valoriInput {
     padding-right: 400px;
@@ -38,13 +79,7 @@ button{
 
 }
 
-#lista span{
-    margin-right: 20px;
-}
-.grassetto img{
-    
-    height: auto;
-}
+
 .grassetto {
     color: blue;
     font-weight: bold;

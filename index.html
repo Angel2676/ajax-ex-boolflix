@@ -27,23 +27,20 @@
         </main>
 
         <script id="entry-template" type="text/x-handlebars-template">
-
-            <ul id="lista">
-                  <li><span class="grassetto"><img src="{{{image}}}" alt=""></li>
-                 <li><span class="grassetto">Tipo</span>{{tipo}}</li>
-                  <li><span class="grassetto">Titolo</span>{{title}}</li>
-                  <li> <span class="grassetto">Titolo Originale</span>{{original_title}}</li>
-                  <li> <span class="grassetto">Lingua Originale</span>{{{original_language}}}</li>
-                  <li><span class="grassetto">Voto</span>{{{vote_average}}}</li>
-
-
-
-            </ul>
-
-
-
-        </script>
-
+      <div class="lista">
+        <div class="immagine">
+          <img class="immagine_top" src="{{{image}}}" alt="{{title}}" />
+        </div>
+        <div class="box">
+          <p class="list-item"><span class="grassetto">Tipo</span>{{tipo}}</p>
+          <p class="list-item"> <span class="grassetto">Titolo </span>{{title}}</p>
+          <p class="list-item"><span class="grassetto">Titolo Originale </span>{{original_title}} </p>
+          <p class="list-item"> <span class="grassetto"> Lingua Originale </span>{{{original_language}}} </p>
+          <p class="list-item"> <span class="grassetto">Voto </span>{{{vote_average}}} </p>
+          <p class="list-item"> <span class="grassetto">Overview </span>{{{overview}}} </p>
+        </div>
+      </div>
+    </script>
         <script id="no-result-template" type="text/x-handlebars-template">
             <div class="no-result">{{noResult}}</div>
         </script>
