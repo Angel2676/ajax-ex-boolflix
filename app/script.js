@@ -38,6 +38,7 @@
 
 
 $(document).ready(function(){
+    // homeP() -- non funzona
     $("#button").click(function(){
         init();
     });
@@ -46,6 +47,15 @@ $(document).ready(function(){
         if (event.which == 13 || event.keyCode == 13) {
         init();
     }
+    });
+
+    $("#research").click(function(){
+        $(this).addClass("hide");
+        $(".top-right-menu").toggleClass("show");
+
+
+
+
     });
 
 }); // Fine JQuery
@@ -92,6 +102,44 @@ function chiamata(data,url,type){
     );
 };
 
+function findActors(url,mediaId){
+    $.ajax(
+        {
+        url: url,
+        method: "GET",
+        data: {
+            api_key:"86441f8205c2837900332bf796f193e9",
+        },
+        success: function(risposta){
+            var cast = "";
+            var len=0;
+            if(risposta.cast.length > 5){
+                 len = 5;
+            }else {
+                len = risposta.cast.length;
+            }
+            for (var i = 0; i < len; i++) {
+                if( i < len -1){
+                    cast+= " "+risposta.cast[i].name+", "
+                }else {
+                    cast+= " "+risposta.cast[i].name+". "
+                } //
+
+
+        };
+            $("[data-media='" + mediaId + "']").append(cast);
+
+
+        },
+        error: function(){
+            alert("Cast= C'è stato un errore")
+        }
+
+    })   // Chiusura chiamata AJAX
+
+     // Chiusura chiamata AJAx
+}; // Chiusura Funzione Find Actors
+
 // Viene presa una sola chimamata API success
 // function insertTv(data){
 //         $.ajax({
@@ -128,11 +176,12 @@ function printResult(data,type){
     var immagini = " ";
     var imagePath = "https://image.tmdb.org/t/p/w342"
         for (var i = 0; i < data.length; i++) {
+            var cast;
+            var dataId = data[i].id
         if (type == "Film") {
             var title = data[i].title;
             var original_title = data[i].original_title;
             var immagini = data[i].poster_path;
-
         } else if (type == "Tv") {
             var title = data[i].name;
             var original_title = data[i].original_name;
@@ -145,15 +194,19 @@ function printResult(data,type){
             original_language: flag(data[i].original_language),
             vote_average: starS(data[i].vote_average),
             image: getImage(immagini,imagePath),
-            overview: data[i].overview.substring(0,250) + "[......]"
-
+            overview: data[i].overview.substring(0,200) + "[......]",
+            idCast: data[i].id
 
         };
         var html = template(context);
         if (type == "Film") {
         $("#covers-film").append(html);
+        var cast = "https://api.themoviedb.org/3/movie/" + dataId + "/credits"; 
+        findActors(cast,dataId);
         } else if (type == "Tv") {
         $("#covers-tv").append(html);
+        var cast = "https://api.themoviedb.org/3/tv/" + dataId + "/credits"; 
+        findActors(cast,dataId);
         }
 
         }
@@ -221,3 +274,10 @@ function flag(lingua){
     return lingua;
 
 };
+// 6 FUNZIONE -- NON FUNZIONA
+// function homeP(){
+//     var popularTrend = "https://api.themoviedb.org/3/trending/all/week";
+//     var titolo= "";
+//     init(titolo,popularTrend)
+//
+// }

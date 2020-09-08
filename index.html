@@ -12,32 +12,45 @@
     </head>
     <body>
         <header class="header">
-            <div class="search">
-                <input id="valoriInput"type="text" name="" value="" placeholder="inserisci il tuo titolo">
-                <button id="button"type="button" name="button">Search</button>
+            <div class="right-menu">
+                <img src="img/logo3.jpeg" alt="">
+                <ul class="top-menu">
+                    <li>Ultime Uscite</li>
+                    <li>I nostri trailers</li>
+                    <li>la Nostra Scelta</li>
+                </ul>
+            </div>
+            <div class="search clearfix">
+                <i id="research" class="fas fa-search" style="color:white; font-size: 30px"></i>
+                <div class="top-right-menu hide">
+                    <input id="valoriInput"type="text" name="" value="" placeholder="inserisci il tuo titolo">
+                    <button id="button"type="button" name="button">Search</button>
+                </div>
             </div>
         </header>
 
         <main>
-            <h2></h2>
+            <h2 class="genere-tv hide">Film</h2>
             <div id="covers-film"> </div>
 
-            <h2></h2>
+            <h2 class="genere-serie hide">Serie Tv</h2>
             <div id="covers-tv"> </div>
         </main>
 
         <script id="entry-template" type="text/x-handlebars-template">
-      <div class="lista">
+      <div class="lista" >
         <div class="immagine">
           <img class="immagine_top" src="{{{image}}}" alt="{{title}}" />
         </div>
         <div class="box">
           <p class="list-item"><span class="grassetto">Tipo</span>{{tipo}}</p>
-          <p class="list-item"> <span class="grassetto">Titolo </span>{{title}}</p>
+          <p class="list-item"><span class="grassetto">Titolo </span>{{title}}</p>
           <p class="list-item"><span class="grassetto">Titolo Originale </span>{{original_title}} </p>
-          <p class="list-item"> <span class="grassetto"> Lingua Originale </span>{{{original_language}}} </p>
-          <p class="list-item"> <span class="grassetto">Voto </span>{{{vote_average}}} </p>
-          <p class="list-item"> <span class="grassetto">Overview </span>{{{overview}}} </p>
+          <p class="list-item"><span class="grassetto"> Lingua Originale </span>{{{original_language}}} </p>
+          <p class="list-item"><span class="grassetto cast" data-media={{idCast}}></p>
+          <p class="list-item"><span class="grassetto">Voto </span>{{{vote_average}}} </p>
+          <p class="list-item"><span class="grassetto">Overview </span>{{{overview}}} </p>
+
         </div>
       </div>
     </script>
